@@ -67,6 +67,7 @@ class EscalatorRR:
 
     def preempt(self):
         if self.current_task.quantum_execute_cycle_time == self.current_task.quantum:
+            self.tasks[0].quantum_execute_cycle_time = 0
             self.tasks.append(self.tasks.pop(0))
             self.current_task = self.tasks[0]
 
