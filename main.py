@@ -32,7 +32,7 @@ class EscalatorSRTN:
     def execute(self):
         print("\n ================\n SRTN \n ================ \n")
         for i in range(0, self.total_time, 1):
-            if self.current_task:
+            if self.current_task and self.current_task.time_process >= 0:
                 print("Task: {} || Time: {} || Value: {}".format(self.current_task.name, i,
                                                                  self.current_task.time_process))
             self.kill_task()
@@ -71,7 +71,7 @@ class EscalatorRR:
     def execute(self):
         print("\n ================\n ROUND ROBIN \n ================ \n")
         for i in range(0, self.total_time, 1):
-            if self.current_task:
+            if self.current_task and self.current_task.time_process >= 0:
                 print("Task: {} || Time: {} || Value: {}".format(self.current_task.name, i,
                                                                  self.current_task.time_process))
 
@@ -118,7 +118,7 @@ class EscalatorPriority:
     def execute(self):
         print("\n================\n Priority scheduler \n================\n")
         for i in range(0, self.total_time, 1):
-            if self.current_task:
+            if self.current_task and self.current_task.time_process >= 0:
                 print("Task: {} || Time: {} || Value: {}".format(self.current_task.name, i,
                                                                  self.current_task.time_process))
 
@@ -160,15 +160,16 @@ def main():
     static_tasks = [Task(10, 4, 0, 'A', 5), Task(20, 8, 0, 'B', 5), Task(30, 12, 0, 'C', 5)]
 
     # SRTN
-    #escalator = EscalatorSRTN(static_tasks, X)
-    #escalator.execute()
+    # escalator = EscalatorSRTN(static_tasks, X)
+    # escalator.execute()
     # ROUND ROBIN
-    #escalator = EscalatorRR(static_tasks, X)
-    #escalator.execute()
-    # Priority
-    escalator = EscalatorPriority(
-        [Task(110, 20, 0, 'A', 5, 0), Task(150, 40, 0, 'B', 5, 5), Task(310, 100, 0, 'C', 5, 10)], 500)
+    escalator = EscalatorRR(
+        [Task(110, 20, 0, 'A', 20, 0), Task(150, 40, 0, 'B', 20, 5), Task(310, 100, 0, 'C', 20, 10)], 500)
     escalator.execute()
+    # Priority
+    # escalator = EscalatorPriority(
+    #     [Task(110, 20, 0, 'A', 5, 0), Task(150, 40, 0, 'B', 5, 5), Task(310, 100, 0, 'C', 5, 10)], 500)
+    # escalator.execute()
 
 
 if __name__ == "__main__":
